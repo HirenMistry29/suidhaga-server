@@ -21,8 +21,9 @@ export const configurePassport = async () => {
 	});
 
 	passport.use(
-		new GraphQLLocalStrategy(async (username, password, done) => {
+		new GraphQLLocalStrategy(async (username , password, done) => {
 			try {
+				console.log(username);
 				const user = await User.findOne({ username });
 				console.log(user);
 				if (!user) {
@@ -41,3 +42,5 @@ export const configurePassport = async () => {
 		})
 	);
 };
+
+

@@ -5,8 +5,9 @@ import userTypeDef from "./user.typeDef.js";
 import transactionTypeDef from "./transaction.typeDef.js";
 import postTypeDef from "./post.typeDef.js";
 import jobTypeDefs from "./job.typedefs.js";
+import bulkAddTypeDef from "./bulkadd.typeDef.js";
 
-const mergedTypeDefs = mergeTypeDefs([userTypeDef, transactionTypeDef , postTypeDef , jobTypeDefs]);
+const mergedTypeDefs = mergeTypeDefs([userTypeDef, transactionTypeDef , postTypeDef , jobTypeDefs , bulkAddTypeDef ]);
 
 export default mergedTypeDefs;
 

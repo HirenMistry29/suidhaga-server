@@ -4,7 +4,9 @@ import userResolver from "./user.resolver.js";
 import transactionResolver from "./transaction.resolver.js";
 import postResolver from "./post.resolver.js";
 import jobResolver from "./job.resolver.js";
+import commentResolver from "./comment.resolver.js";
+import bulkAddResolvers from "./bulkAdd.resolver.js";
 
-const mergedResolvers = mergeResolvers([userResolver, transactionResolver , postResolver, jobResolver ]);
+const mergedResolvers = mergeResolvers([userResolver, transactionResolver , postResolver, jobResolver , commentResolver , bulkAddResolvers]);
 
 export default mergedResolvers;

@@ -15,6 +15,7 @@ const postResolver = {
                         title,
                         description,
                         createdAt,
+                        comments:[],
                         user: user.id,
                         username: user.username,
                     });

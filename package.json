@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start":" node backend/index.js",
+		"start": " node backend/index.js",
 		"dev": " nodemon backend/index.js",
 		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
 	},
@@ -23,6 +23,7 @@
 		"express-session": "^1.18.0",
 		"graphql": "^16.8.1",
 		"graphql-passport": "^0.6.8",
+		"graphql-upload": "^16.0.2",
 		"mongoose": "^8.2.0",
 		"passport": "^0.7.0"
 	},

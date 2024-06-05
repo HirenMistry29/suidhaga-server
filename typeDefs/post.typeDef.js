@@ -1,8 +1,10 @@
 const postTypeDef = `#graphql
     type Post {
         _id: ID!
+        postId:String!
         title: String!
         description: String!
+        body: String
         createdAt: String!
         comments: [Comment]!
         likes: [Like]!
@@ -15,6 +17,7 @@ const postTypeDef = `#graphql
     createdAt: String!
     username: String!
     body: String!
+    postId: String
     }
 
     type Like {
@@ -30,6 +33,7 @@ const postTypeDef = `#graphql
     type Mutation {
         createPost(input: postInput!) : Post
         deletePost(postId: ID!): String!
+        createComment(input: commentInput!): Comment
     }
 
     input postInput {
@@ -37,6 +41,12 @@ const postTypeDef = `#graphql
         description: String!
         createdAt: String!
     }
+
+    input commentInput{
+        body: String!
+        postId: ID!
+    }
+
 `
 export default postTypeDef;
 

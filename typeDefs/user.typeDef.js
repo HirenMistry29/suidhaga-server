@@ -1,6 +1,7 @@
 const userTypeDef = `#graphql
   type User {
     _id: ID!
+    userType: String!
     username: String!
     email: String!
     password: String!
