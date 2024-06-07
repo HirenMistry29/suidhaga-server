@@ -1,15 +1,15 @@
 const postTypeDef = `#graphql
     type Post {
         _id: ID!
-        postId:String!
+        postId:String
         title: String!
         description: String!
         body: String
         createdAt: String!
-        comments: [Comment]!
-        likes: [Like]!
-        likeCount: Int!
-        commentCount: Int!
+        comments: [Comment]
+        likes: [Like]
+        likeCount: Int
+        commentCount: Int
     }
 
     type Comment {

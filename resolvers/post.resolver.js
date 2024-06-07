@@ -19,6 +19,7 @@ const postResolver = {
                         user: user.id,
                         username: user.username,
                     });
+                    // console.log(newPost);
                     await newPost.save();
                     return newPost; 
                 }
