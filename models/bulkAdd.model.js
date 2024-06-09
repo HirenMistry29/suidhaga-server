@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const excelDataSchema = new mongoose.Schema({
+const employeeSchema = new mongoose.Schema({
   title: String,
   firstName: String,
   middleName: String,
@@ -12,6 +12,6 @@ const excelDataSchema = new mongoose.Schema({
   batchNo: String
 });
 
-const ExcelDataModel = mongoose.model('employeedata', excelDataSchema);
+const EmployeeModel = mongoose.model('employeedata', employeeSchema);
 
-export default ExcelDataModel; 
+export default EmployeeModel; 
