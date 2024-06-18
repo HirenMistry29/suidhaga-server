@@ -53,13 +53,30 @@ const jobResolver = {
     Query: {
         jobs:async () =>{
             try{
+                console.log(`fetched jobs`);
               const jobs = await Job.find();
               return jobs;
             }catch(error){
               console.log(error);
               throw new Error("Internal server error");
             }
-          }
+          },
+        job:async (_,{id}) => {
+            console.log(`fettching jobs by id`);
+            try {
+                console.log(`fetching job by id`);
+                console.log(id);
+                const job = await Job.findById(id);
+                if (!job) {
+                  throw new Error("Job not found");
+                }
+                return job;
+              } catch (error) {
+                console.log(error);
+                throw new Error("Internal server error");
+              }
+        
+        }
     }
 }
 

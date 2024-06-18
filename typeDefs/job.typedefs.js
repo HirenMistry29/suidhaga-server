@@ -15,6 +15,7 @@ const JobTypeDef = `#graphql
 
     type Query{
         jobs: [Job]
+        job(id: ID!): Job
     }
 
     type Mutation {

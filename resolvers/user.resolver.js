@@ -89,6 +89,15 @@ const userResolver = {
 				throw new Error(err.message || "Error getting user");
 			}
 		},
+		users: async () => {
+			try {
+				const users = await User.find();
+                return users;
+			} catch (error) {
+				console.log(error);
+				throw new Error("Internal server error");
+			}
+		}
 	},
 	// User: {
 	// 	transactions: async (parent) => {
