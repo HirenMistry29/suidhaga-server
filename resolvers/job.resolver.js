@@ -17,6 +17,7 @@ const jobResolver = {
                         createdAt,
                         user: user.id,
                         username: user.username,
+                        status: 'Active',
                     });
                     await newJob.save();
                     return newJob; 
@@ -48,7 +49,24 @@ const jobResolver = {
                 console.log(error.message);
                 throw new Error(error);
             }
-        }
+        },
+        updateJobStatus: async (_, { jobId, status }, context) => {
+            try {
+              const updatedJob = await Job.findOneAndUpdate(
+                { _id: jobId },
+                { $set: { status } },
+                { returnOriginal: false }
+              );
+
+              if (!updatedJob.value) {
+                throw new Error('Job not found');
+              }
+
+              return updatedJob.value;
+            } catch (error) {
+            //   throw new Error('Error updating job status');
+            }
+          },
     },
     Query: {
         jobs:async () =>{

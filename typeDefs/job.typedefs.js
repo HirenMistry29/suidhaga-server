@@ -5,6 +5,7 @@ const JobTypeDef = `#graphql
         description: String!
         createdAt: String!
         applications: [Application]!
+        status: String
     }
 
     type Application {
@@ -20,6 +21,7 @@ const JobTypeDef = `#graphql
     type Mutation {
         createJob(input: jobInput!) : Job
         deleteJob(jobId: ID!): String!
+        updateJobStatus(jobId: ID!, status: String!): Job
     }
 
     input jobInput {
