@@ -20,6 +20,10 @@ const jobSchema = new mongoose.Schema({
           createdAt: String
         }
       ],
+      status: {
+        type: String,
+        required: true,
+      },
       user: {
         type: Schema.Types.ObjectId,
         ref: 'users'

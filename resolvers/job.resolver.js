@@ -2,24 +2,25 @@ import Job from "../models/job.model.js";
 
 const jobResolver = {
     Mutation: {
-        createJob:async (_,{input},context) =>{
+        createJob: async (_, { input }, context) => {
             const user = await context.getUser();
             console.log(user);
-            const {title , description , createdAt } = input;
+            const { title, description, createdAt } = input;
             try {
                 if (!title || !description || !createdAt) {
                     throw new Error(`All fields are required`);
                 }
-                if(user){
-                    const newJob= new Job({
+                if (user) {
+                    const newJob = new Job({
                         title,
                         description,
                         createdAt,
                         user: user.id,
                         username: user.username,
+                        status: 'Active',
                     });
                     await newJob.save();
-                    return newJob; 
+                    return newJob;
                 }
                 if (!user) {
                     throw new Error(`User Not Found`)
@@ -29,7 +30,7 @@ const jobResolver = {
                 throw new Error(err.message || "Internal server error");
             }
         },
-        deleteJob:async (_,{postId},context) => {
+        deleteJob: async (_, { postId }, context) => {
             const user = context.getUser();
             // console.log(user.username);
             try {
@@ -48,7 +49,34 @@ const jobResolver = {
                 console.log(error.message);
                 throw new Error(error);
             }
-        }
+        },
+        updateJobStatus: async (_, { jobId, status }, context) => {
+            try {
+                //   const updatedJob = await Job.findOneAndUpdate(
+                //     { _id: jobId },
+                //     { $set: { status } },
+                //     { returnOriginal: false }
+                //   );
+
+                //   if (!updatedJob.value) {
+                //     throw new Error('Job not found');
+                //   }
+
+                //   return updatedJob.value;
+                const job = await Job.findById(jobId);
+
+                if (!job) {
+                    throw new Error("Job not found");
+                }
+
+                job.status = status;
+                await job.save();
+                return job;
+
+            } catch (error) {
+                  throw new Error('Error updating job status');
+            }
+        },
     },
     Query: {
         jobs:async () =>{
@@ -76,6 +104,17 @@ const jobResolver = {
                 throw new Error("Internal server error");
               }
         
+        },
+        jobByUserID:async (_,{id}) => {
+            console.log(id);
+            try {
+                const jobs = await Job.find({user:id})
+                return jobs;
+            } catch (error) {
+                console.log(error);
+                throw new Error("Unable to fetch jobs. Please try again later.");
+              
+            }
         }
     }
 }
