@@ -4,6 +4,7 @@ const postTypeDef = `#graphql
         postId:String
         title: String!
         description: String!
+        username: String!
         body: String
         createdAt: String!
         comments: [Comment]
@@ -34,6 +35,7 @@ const postTypeDef = `#graphql
         createPost(input: postInput!) : Post
         deletePost(postId: ID!): String!
         createComment(input: commentInput!): Comment
+
     }
 
     input postInput {
