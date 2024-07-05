@@ -5,7 +5,7 @@ const jobResolver = {
         createJob: async (_, { input }, context) => {
             const user = await context.getUser();
             console.log(user);
-            const { title, description, createdAt } = input;
+            const { title, description, amount, size, color, quantity, createdAt , image } = input;
             try {
                 if (!title || !description || !createdAt) {
                     throw new Error(`All fields are required`);
@@ -15,10 +15,16 @@ const jobResolver = {
                         title,
                         description,
                         createdAt,
+                        amount,
+                        size,
+                        color,
+                        quantity,
+                        image,
                         user: user.id,
                         username: user.username,
                         status: 'Active',
                     });
+                    console.log(newJob);
                     await newJob.save();
                     return newJob;
                 }
