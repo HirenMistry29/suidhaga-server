@@ -9,6 +9,23 @@ const jobSchema = new mongoose.Schema({
         required: true,
         type: String,
     },
+    color:{
+      type: String,
+    },
+    size:{
+      type: String,
+    },
+    quantity:{
+        type: Number,
+    },
+    amount:{
+      type: Number,
+      required: true
+    },
+    image:{
+      type: String,
+      required: true,
+    },
     createdAt:{
         type: String,
         required: true,

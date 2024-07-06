@@ -6,6 +6,11 @@ const JobTypeDef = `#graphql
         createdAt: String!
         applications: [Application]!
         status: String
+        color: String
+        size: String
+        quantity: Int
+        amount: Int
+        image: String
         username: String
     }
 
@@ -31,6 +36,11 @@ const JobTypeDef = `#graphql
         title: String!
         description: String!
         createdAt: String!
+        color: String
+        size: String
+        quantity: Int
+        amount: Int
+        image: String
     }
 `
 export default JobTypeDef;

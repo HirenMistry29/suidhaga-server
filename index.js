@@ -6,20 +6,16 @@ import path from "path";
 import passport from "passport";
 import session from "express-session";
 import connectMongo from "connect-mongodb-session";
-
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
-
 import { buildContext } from "graphql-passport";
-
 import mergedResolvers from "./resolvers/index.js";
 import mergedTypeDefs from "./typeDefs/index.js";
-
 import { connectDB } from "./db/connectDB.js";
 import { configurePassport } from "./passport/passport.config.js";
-
 import job from "./cron.js";
+import { Server } from "socket.io";
 
 dotenv.config();
 configurePassport();
@@ -30,6 +26,12 @@ const __dirname = path.resolve();
 const app = express();
 
 const httpServer = http.createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+        origin: "*",
+    },
+});
+
 
 const MongoDBStore = connectMongo(session);
 
@@ -67,19 +69,50 @@ await server.start();
 
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(
-	"/graphql",
-	cors({
-		origin: "http://localhost:3000",
-		credentials: true,
-	}),
-	express.json(),
-	// expressMiddleware accepts the same arguments:
-	// an Apollo Server instance and optional configuration options
-	expressMiddleware(server, {
-		context: async ({ req, res }) => buildContext({ req, res }),
-	})
+    "/graphql",
+    expressMiddleware(server, {
+        context: async ({ req, res }) => buildContext({ req, res }),
+    })
 );
+
+// app.use(
+// 	"/graphql",
+// 	cors({
+// 		origin: "http://localhost:3000",
+// 		credentials: true,
+// 	}),
+// 	express.json(),
+// 	// expressMiddleware accepts the same arguments:
+// 	// an Apollo Server instance and optional configuration options
+// 	expressMiddleware(server, {
+// 		context: async ({ req, res }) => buildContext({ req, res }),
+// 	})
+// );
+
+// Push Notification using socket.io
+io.on('connection', (socket) => {
+    // console.log(`: ${socket.id} user just connected!`);
+
+    socket.on('disconnect', () => {
+        // console.log(': A user disconnected');
+    });
+});
+
+// Rest API Endpoint
+app.post("/api", (req, res) => {
+    const { name, message } = req.body;
+    io.emit('notification', { name, message });
+    console.log(name, message);
+    res.status(200).json({ name, message });
+});
 
 // npm run build will build your frontend app, and it will the optimized version of your app
 app.use(express.static(path.join(__dirname, "frontend/dist")));
