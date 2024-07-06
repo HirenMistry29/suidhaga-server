@@ -69,6 +69,20 @@ const userResolver = {
 				throw new Error(err.message || "Internal server error");
 			}
 		},
+		updateUserRole: async (_, { userId, userType }) => {
+			try {
+			  const user = await User.findById(userId);
+			  if (!user) {
+				throw new Error("User not found");
+			  }
+			  user.userType = userType;
+			  await user.save();
+			  return user;
+			} catch (err) {
+			  console.error("Error updating user role:", err);
+			  throw new Error(err.message || "Internal server error");
+			}
+		},
 	},
 	Query: {
 		authUser: async (_, __, context) => {

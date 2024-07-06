@@ -6,6 +6,7 @@ const JobTypeDef = `#graphql
         createdAt: String!
         applications: [Application]!
         status: String
+        username: String
     }
 
     type Application {

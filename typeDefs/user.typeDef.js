@@ -21,6 +21,7 @@ const userTypeDef = `#graphql
     signUp(input: SignUpInput!): User
     login(input: LoginInput!): User
     logout: LogoutResponse
+    updateUserRole(userId:ID!,userType:String): User
   }
 
   input SignUpInput {
