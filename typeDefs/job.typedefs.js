@@ -26,9 +26,14 @@ const JobTypeDef = `#graphql
         jobByUserID(id:ID!): [Job]
     }
 
+    type DeleteJobResponse {
+        success: Boolean!
+        message: String!
+    }
+    
     type Mutation {
         createJob(input: jobInput!) : Job
-        deleteJob(jobId: ID!): String!
+        deleteJob(jobId: ID!): DeleteJobResponse!
         updateJobStatus(jobId: ID!, status: String!): Job
     }
 
