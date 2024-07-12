@@ -2,12 +2,13 @@ import Post from "../models/post.model.js";
 import CommentModel from "../models/comment.model.js";
 
 const commentResolver = {
-    Mutation : {
-        createComment:async (_,{input},context)=>{
+    Mutation: {
+        createComment: async (_, { input }, context) => {
             const user = await context.getUser();
             console.log(user);
-            const {body , postId} = input;
-            if(body.trim()===''){
+            const { postId, body } = input;
+            console.log(input);
+            if (body.trim() === '') {
                 console.log(`Empty Body`);
                 throw new Error(`Body should not be empty`)
             }
@@ -18,10 +19,10 @@ const commentResolver = {
                 const newComment = new CommentModel({
                     postId,
                     body,
-                    username : user.username,
+                    username: user.name,
                     createdAt: new Date().toISOString()
-                  });
-                  await newComment.save();
+                });
+                await newComment.save();
 
                 //   await Post.findByIdAndUpdate(
                 //     postId,
@@ -31,9 +32,46 @@ const commentResolver = {
                 post.comments.push(newComment);
                 await post.save();
 
-                  return newComment;
+                return newComment;
 
-            }else {throw new Error('Post not found');}
+            } else { throw new Error('Post not found'); }
+        },
+    },
+    Query: {
+        getComments: async (_, { postId }, context) => {
+            try {
+                const post = await Post.findById(postId).populate('comments');
+
+                if (post) {
+                    // const comments = await post.comments.find();
+                    return post.comments;
+                } else {
+                    throw new Error('Post not found');
+                }
+            } catch (error) {
+                console.log(error);
+                throw new Error("Internal server error");
+            }
+        },
+        getPostComments: async (_, { postId, offset, limit }, context) => {
+            try {
+                const post = await Post.findById(postId).populate({
+                    path: 'comments',
+                    options: {
+                        sort: { createdAt: -1 },
+                        skip: offset,
+                        limit: limit,
+                    },
+                });
+
+                if (post) {
+                    return post.comments;
+                } else {
+                    throw new Error('Post not found');
+                }
+            } catch (error) {
+                throw new Error('Error fetching comments');
+            }
         },
     }
 }

@@ -29,13 +29,14 @@ const postTypeDef = `#graphql
 
     type Query{
         posts: [Post]
+        getComments(postId: ID!): [Comment]
+        getPostComments(postId: ID!, offset: Int, limit: Int): [Comment!]
     }
 
     type Mutation {
         createPost(input: postInput!) : Post
         deletePost(postId: ID!): String!
         createComment(input: commentInput!): Comment
-
     }
 
     input postInput {
@@ -45,8 +46,8 @@ const postTypeDef = `#graphql
     }
 
     input commentInput{
-        body: String!
         postId: ID!
+        body: String!
     }
 
 `
