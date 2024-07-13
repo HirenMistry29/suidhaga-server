@@ -22,6 +22,7 @@ const jobResolver = {
                         image,
                         user: user.id,
                         username: user.username,
+                        name: user.name,
                         status: 'Active',
                     });
                     console.log(newJob);

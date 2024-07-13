@@ -11,6 +11,7 @@ const JobTypeDef = `#graphql
         quantity: Int
         amount: Int
         image: String
+        name:String
         username: String
     }
 

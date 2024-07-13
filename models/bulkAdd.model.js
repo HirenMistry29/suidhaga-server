@@ -5,11 +5,11 @@ const employeeSchema = new mongoose.Schema({
   firstName: String,
   middleName: String,
   lastName: String,
-  mobile: String,
-  aadharNumber: String,
-  rollNumber: String,
+  mobile: Number,
+  aadharNumber: Number,
+  rollNumber: Number,
   batchMonth: String,
-  batchNo: String
+  batchNo: Number
 });
 
 const EmployeeModel = mongoose.model('employeedata', employeeSchema);

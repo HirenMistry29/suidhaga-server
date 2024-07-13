@@ -5,11 +5,11 @@ const EmployeeTypeDef = `#graphql
         firstName: String
         middleName: String
         lastName: String
-        mobile: String
-        aadharNumber: String
-        rollNumber: String
+        mobile: Float
+        aadharNumber: Float
+        rollNumber: Int
         batchMonth: String
-        batchNo: String
+        batchNo: Int
     }
     type Query {
         getEmployee: [Employee!]!
@@ -22,11 +22,11 @@ const EmployeeTypeDef = `#graphql
         firstName: String
         middleName: String
         lastName: String
-        mobile: String
-        aadharNumber: String
-        rollNumber: String
+        mobile: Float
+        aadharNumber:Float
+        rollNumber: Int
         batchMonth: String
-        batchNo: String
+        batchNo: Int
     }
 
 `
