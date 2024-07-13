@@ -61,8 +61,19 @@ const postResolver = {
               console.log(error);
               throw new Error("Internal server error");
             }
-          }
+          },
+          getPostById: async (_, { accountId } ) => {
+            try{
+              const post = await Post.find({ user: accountId });
+              return post;
+            }catch(error){
+              console.log(error);
+              throw new Error("Internal server error");
+            }
+      
+        }
     }
+
 }
 
 export default postResolver;
