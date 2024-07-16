@@ -1,10 +1,9 @@
-import Job from "../models/job.model.js";
+import Job from "../models/job.model.js"
 
 const jobResolver = {
     Mutation: {
         createJob: async (_, { input }, context) => {
             const user = await context.getUser();
-            console.log(user);
             const { title, description, amount, size, color, quantity, createdAt, image } = input;
             try {
                 if (!title || !description || !createdAt) {
@@ -75,7 +74,6 @@ const jobResolver = {
 
                 //   return updatedJob.value;
                 const job = await Job.findById(jobId);
-
                 if (!job) {
                     throw new Error("Job not found");
                 }
@@ -88,7 +86,30 @@ const jobResolver = {
                 throw new Error('Error updating job status');
             }
         },
+        applyJob: async (_, { input }, context) => {
+            try {
+                const user = await context.getUser();
+                const { id } = input;
+                const job = await Job.findById(id);
+                if (!job) {
+                    throw new Error("Job not found");
+                }
+                const application = {
+                    id: job.id,
+                    createdAt: new Date().toISOString(),
+                    username: user.name,  // Assuming `user.username` is accessible
+                };
+                job.applications.push(application);
+                await job.save();
+        
+                return job;
+            } catch (error) {
+                throw new Error("Failed to apply job");
+            }
+        }
+        
     },
+
     Query: {
         jobs: async () => {
             try {

@@ -37,7 +37,7 @@ const userTypeDef = `#graphql
     username: String!
     password: String!
   }
-
+  
   type LogoutResponse {
     message: String!
   }
