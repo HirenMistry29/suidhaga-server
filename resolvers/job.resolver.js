@@ -40,6 +40,7 @@ const jobResolver = {
         deleteJob: async (_, { jobId }, context) => {
             // const user = context.getUser();
             // console.log(user.username);
+            console.log("JOB ID : " , jobId);
             try {
                 const job = await Job.findById(jobId)
                 console.log(job);

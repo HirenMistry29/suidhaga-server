@@ -28,13 +28,13 @@ const JobTypeDef = `#graphql
     }
 
     type DeleteJobResponse {
-        success: Boolean!
-        message: String!
+        success: Boolean
+        message: String
     }
     
     type Mutation {
         createJob(input: jobInput!) : Job
-        deleteJob(jobId: ID!): DeleteJobResponse!
+        deleteJob(jobId: ID!): DeleteJobResponse
         updateJobStatus(jobId: ID!, status: String!): Job
     }
 
