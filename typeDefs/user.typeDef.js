@@ -7,15 +7,23 @@ const userTypeDef = `#graphql
     password: String!
     phone: String!
     name: String!
+    applications: [Application]
     # profilePicture: String
     # gender: String!
     # transactions: [Transaction!]
   }
+  type Application {
+  id: ID!
+  createdAt: String
+  username: String
+  }
+
 
   type Query {
     users: [User]
     authUser: User
     user(userId:ID!): User
+    getAppliedJob: [User]
   }
 
   type Mutation {
@@ -23,6 +31,7 @@ const userTypeDef = `#graphql
     login(input: LoginInput!): User
     logout: LogoutResponse
     updateUserRole(userId:ID!,userType:String): User
+    applyJob(jobId: ID!): Job
   }
 
   input SignUpInput {
@@ -37,7 +46,7 @@ const userTypeDef = `#graphql
     username: String!
     password: String!
   }
-
+  
   type LogoutResponse {
     message: String!
   }

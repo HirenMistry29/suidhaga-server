@@ -33,7 +33,8 @@ const postTypeDef = `#graphql
         posts: [Post]
         getComments(postId: ID!): [Comment]
         getPostComments(postId: ID!, offset: Int, limit: Int): [Comment!]
-        getPostById(accountId: ID!): [Post]
+        getPostsById(accountId: ID!): [Post]
+        getPostById(postId: ID!) : Post
     }
 
     type Mutation {

@@ -20,7 +20,7 @@ const commentResolver = {
                     postId,
                     body,
                     username: user.name,
-                    createdAt: new Date().toISOString()
+                    createdAt: new Date().toISOString(),
                 });
                 await newComment.save();
 

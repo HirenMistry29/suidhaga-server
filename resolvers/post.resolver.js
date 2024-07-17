@@ -63,7 +63,7 @@ const postResolver = {
               throw new Error("Internal server error");
             }
           },
-          getPostById: async (_, { accountId } ) => {
+          getPostsById: async (_, { accountId } ) => {
             try{
               const post = await Post.find({ user: accountId });
               return post;
@@ -72,9 +72,23 @@ const postResolver = {
               throw new Error("Internal server error");
             }
       
-        }
+        },
+        getPostById: async (_, { postId } ) => {
+          
+            try{
+              if(postId){
+              const post = await Post.findById(postId);
+              return post;
+              } else {
+                throw new Error("Post ID is required");
+                console.log("post id not found");
+              }
+            }catch(error){
+              console.log(error);
+              throw new Error("Internal server error");
+            }
     }
-
+    }
 }
 
 export default postResolver;
