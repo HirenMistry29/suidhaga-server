@@ -1,3 +1,4 @@
+import { request } from "express";
 import mongoose,{Schema} from "mongoose";
 
 const postSchema = new mongoose.Schema({
@@ -8,6 +9,10 @@ const postSchema = new mongoose.Schema({
     description:{
         required: true,
         type: String,
+    },
+    image : {
+      type : String,
+      required: true,
     },
     createdAt:{
         type: String,

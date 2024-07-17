@@ -11,6 +11,8 @@ const postTypeDef = `#graphql
         likes: [Like]
         likeCount: Int
         commentCount: Int
+        image: String
+
     }
 
     type Comment {
@@ -45,6 +47,7 @@ const postTypeDef = `#graphql
         title: String!
         description: String!
         createdAt: String!
+        image: String!
     }
 
     input commentInput{

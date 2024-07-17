@@ -62,6 +62,10 @@ const server = new ApolloServer({
 	typeDefs: mergedTypeDefs,
 	resolvers: mergedResolvers,
 	plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    uploads: {
+        maxFileSize: 1000000000, // 1GB (adjust as needed)
+        maxFiles: 10, // Maximum number of files per request
+    },
 });
 
 // Ensure we wait for our server to start
@@ -73,7 +77,7 @@ app.use(cors({
     origin: "http://localhost:3000",
     credentials: true,
 }));
-app.use(express.json());
+app.use(express.json({limit: '5mb'}));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(

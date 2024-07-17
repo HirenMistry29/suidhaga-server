@@ -5,9 +5,9 @@ const postResolver = {
         createPost:async (_,{input},context) =>{
             const user = await context.getUser();
             console.log(user);
-            const {title , description , createdAt } = input;
+            const {title , description , createdAt , image } = input;
             try {
-                if (!title || !description || !createdAt) {
+                if (!title || !description || !createdAt || !image) {
                     throw new Error(`All fields are required`);
                 }
                 if(user){
@@ -15,6 +15,7 @@ const postResolver = {
                         title,
                         description,
                         createdAt,
+                        image,
                         comments:[],
                         user: user.id,
                         username: user.username,
