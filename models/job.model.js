@@ -32,7 +32,7 @@ const jobSchema = new mongoose.Schema({
     },
     applications: [
         {
-          body: String,
+          userId: mongoose.Schema.Types.ObjectId,
           username: String,
           createdAt: String
         }

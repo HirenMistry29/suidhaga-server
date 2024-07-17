@@ -4,7 +4,7 @@ const JobTypeDef = `#graphql
         title: String!
         description: String!
         createdAt: String!
-        applications: [Application]!
+        applications: [Application]
         status: String
         color: String
         size: String
@@ -16,12 +16,9 @@ const JobTypeDef = `#graphql
     }
 
     type Application {
-    id: ID!
-    createdAt: String!
-    username: String!
-    }
-    input ApplicationInput {
-    id: ID!
+        userId: ID!
+        createdAt: String!
+        username: String
     }
 
     type Query{
@@ -39,7 +36,7 @@ const JobTypeDef = `#graphql
         createJob(input: jobInput!) : Job
         deleteJob(jobId: ID!): DeleteJobResponse!
         updateJobStatus(jobId: ID!, status: String!): Job
-        applyJob(input: ApplicationInput): Job
+        applyJob(jobId: ID!): Job
     }
 
 
@@ -55,4 +52,3 @@ const JobTypeDef = `#graphql
     }
 `;
 export default JobTypeDef;
-
