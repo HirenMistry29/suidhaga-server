@@ -13,6 +13,7 @@ const JobTypeDef = `#graphql
         image: String
         name:String
         username: String 
+        user:ID
     }
 
     type Application {

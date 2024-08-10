@@ -1,4 +1,6 @@
 import Job from "../models/job.model.js";
+import OrderModel from "../models/order.model.js";
+
 
 const jobResolver = {
   Mutation: {
@@ -96,6 +98,7 @@ const jobResolver = {
     },
     applyJob: async (_,{ jobId }, context) => {
       try {
+        
         const user = await context.getUser();
         const job = await Job.findById(jobId);
         if (!job) {
@@ -106,6 +109,7 @@ const jobResolver = {
           createdAt: new Date().toISOString(),
           username: user.name, 
         };
+        
         job.applications.push(application);
         await job.save();
 
@@ -113,10 +117,21 @@ const jobResolver = {
           id: job._id,
           createdAt: new Date().toISOString(),
         };
-        console.log(userApplication);
+        // console.log(userApplication);
         user.applications.push(userApplication);
         await user.save();
-
+        
+        // try {
+        //   const NewOrder = new OrderModel({
+        //     jobID : jobId,
+        //     // applications : application,
+        //   }); 
+        //   console.log("NewOder:",NewOrder);
+        //   await NewOrder.save();
+        //   return NewOrder;
+        // } catch (error) {
+        //   console.log("error : ",error);
+        // }
         return job;
       } catch (error) {
         throw new Error("Failed to apply job");
