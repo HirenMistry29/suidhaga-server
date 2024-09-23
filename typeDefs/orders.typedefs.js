@@ -8,6 +8,8 @@ const OrderTypeDef = `#graphql
         operation: String
         userRole: String   
         customerId: ID
+        jobName: String
+        customerName: String
     }
 
     type Application {
@@ -39,6 +41,8 @@ const OrderTypeDef = `#graphql
         appliedUserId: ID!
         userRole: String!
         customerId: ID!
+        jobName: String!
+        customerName: String!
     }
 `;
 

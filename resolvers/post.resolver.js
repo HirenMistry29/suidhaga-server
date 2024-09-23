@@ -39,8 +39,18 @@ const postResolver = {
                 const post = await Post.findById(postId)
                 console.log(post);
                 // console.log(post.username);
-                await post.delete();
-                return `post deleted successfully`
+                await post.deleteOne();
+                if (post) {
+                  return {
+                    success: true,
+                    message: "Post deleted successfully",
+                  };
+                } else {
+                  return {
+                    success: false,
+                    message: "Post not found",
+                  };
+                }
                 // if (post.username === user.username) {
                 //     await post.delete();
                 //     return `post deleted successfully`
@@ -48,7 +58,7 @@ const postResolver = {
                 //     throw new Error(`Action not allowed`)
                 // }
             } catch (error) {
-                console.log(error.message);
+                console.log("no"+ error.message);
                 throw new Error(error);
             }
         }

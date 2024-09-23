@@ -39,7 +39,7 @@ const postTypeDef = `#graphql
 
     type Mutation {
         createPost(input: postInput!) : Post
-        deletePost(postId: ID!): String!
+        deletePost(postId: ID!): DeleteJobResponse
         createComment(input: commentInput!): Comment
     }
 
@@ -48,6 +48,10 @@ const postTypeDef = `#graphql
         description: String!
         createdAt: String!
         image: String!
+    }
+    type DeletePostResponse {
+        success: Boolean
+        message: String
     }
 
     input commentInput{
